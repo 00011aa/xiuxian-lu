@@ -185,6 +185,83 @@ const PATHS = {
   }
 };
 
+// 修仙世界 - 地区
+const REGIONS = {
+  zhongyuan: {
+    id: "zhongyuan", name: "中原", type: "main",
+    desc: "天下腹地，宗门林立，人族繁华，灵气均衡，各大圣地、皇朝盘踞于此。",
+    corners: ["青云山脚", "落霞镇", "玄武城郊外", "翠微谷", "白马渡", "松林坡", "黄沙古道", "望月湖畔"]
+  },
+  nanman: {
+    id: "nanman", name: "南蛮", type: "main",
+    desc: "湿热密林瘴气弥漫，古兽、蛮族、巫道盛行，多上古遗迹。",
+    corners: ["瘴雾林边", "百蛊滩", "赤炎谷口", "蛇骨沼泽", "藤木寨外", "雷鸣盆地", "枯木林", "毒雾河口"]
+  },
+  xirong: {
+    id: "xirong", name: "西戎", type: "main",
+    desc: "戈壁大漠、雪山荒原，佛道、异族部落，流沙秘境多。",
+    corners: ["流沙边缘", "月牙泉畔", "烽火台下", "乱石滩", "驼铃古道", "雪线之下", "佛窟外", "枯井旁"]
+  },
+  beidi: {
+    id: "beidi", name: "北狄", type: "main",
+    desc: "冰原冻土，苦寒之地，妖兽横行，冰修、蛮族部落。",
+    corners: ["冰封原边", "狼牙口", "霜桦林", "冻骨河", "白熊岭", "冻土裂谷", "极光下", "冰窟窿"]
+  },
+  dongyi: {
+    id: "dongyi", name: "东夷", type: "main",
+    desc: "滨海群岛，汪洋浩瀚，海妖、水修，海岛仙门。",
+    corners: ["潮汐码头", "贝壳滩", "海鸥岩", "沉船湾", "珊瑚礁边", "海眼旁", "孤岛岸", "迷雾海峡"]
+  },
+  youyu: {
+    id: "youyu", name: "幽域", type: "special",
+    desc: "黑暗，鬼怪横行。",
+    corners: ["鬼门关外", "幽冥河畔", "白骨林", "忘川桥头", "孤魂野", "阴气谷", "尸骸山", "无明洞口"]
+  },
+  wujinhaiyang: {
+    id: "wujinhaiyang", name: "无尽海洋", type: "special",
+    desc: "龙族栖息之地，深处包含海底巨兽，凶险。",
+    corners: ["浅海礁", "洋流边缘", "深海沟口", "龙宫外岛", "漩涡海", "珊瑚迷宫", "沉船墓场", "海眼边缘"]
+  },
+  jibeizhiyu: {
+    id: "jibeizhiyu", name: "极北之域", type: "special",
+    desc: "寒冷之地，非常寒冷，处于世界的最北边。",
+    corners: ["冰川尽头", "永冻之原", "极光冰原", "冰封峡谷", "霜龙巢穴", "冰晶林", "冻海边缘", "寒冥洞口"]
+  },
+  xingchendao: {
+    id: "xingchendao", name: "星辰岛", type: "special",
+    desc: "世界的上层，拥有无穷无尽的星辰，有的星辰上面可以住人，有的星辰富庶。",
+    corners: ["碎星带", "陨星坑", "星砂平原", "星辉河", "空心星内", "星核碎片旁", "彗星尾迹", "星轨交点"]
+  },
+  qianfenglu: {
+    id: "qianfenglu", name: "千峰陆", type: "special",
+    desc: "土元素极其旺盛，里面有非常多的山峰，山脉等等。",
+    corners: ["万仞峰下", "裂谷深渊", "石林之间", "崖壁栈道", "山腹矿洞", "分水岭", "飞来石下", "山巅云海"]
+  },
+  wancuicangmingsen: {
+    id: "wancuicangmingsen", name: "万萃苍冥森", type: "special",
+    desc: "森林巨多，精灵栖息之地，包含非常多的生灵。",
+    corners: ["古木林深处", "精灵树边", "菌菇地", "藤蔓迷宫", "月光林中空地", "古树根部", "迷雾林地", "生命之泉旁"]
+  },
+  zhufengjing: {
+    id: "zhufengjing", name: "逐风境", type: "special",
+    desc: "拥有无穷无尽的风气，剑气，里面充满了风元素。",
+    corners: ["风眼边缘", "剑风峡", "龙卷平原", "气刃谷", "风蚀岩林", "风暴中心外", "漂浮岛下", "罡风带"]
+  }
+};
+
+// 获取主区域
+function getMainRegions() {
+  return Object.values(REGIONS).filter(r => r.type === "main");
+}
+// 获取特殊区域
+function getSpecialRegions() {
+  return Object.values(REGIONS).filter(r => r.type === "special");
+}
+// 获取所有区域
+function getAllRegions() {
+  return Object.values(REGIONS);
+}
+
 // 修仙百艺 - 100种技能
 const SKILLS = [
   // 炼丹类 1-5
@@ -315,6 +392,84 @@ const SKILLS = [
 // 技能分类
 const SKILL_CATEGORIES = ["炼丹", "法器", "阵法", "符箓", "傀儡", "灵植", "御兽", "蛊虫", "文道", "医毒", "术数", "五行", "冰光暗", "时空", "武技", "身法", "神通", "神魂", "肉身", "灵力", "咒幻", "大道"];
 
+// 物品类型: treasure(宝物), food(食物), spirit(灵物), material(材料), weapon(武器), armor(防具), pill(丹药), talisman(符箓)
+// rarity: 凡品, 灵品, 宝品, 仙品, 神品, 混沌
+const ITEMS = {
+  // 食物
+  rice: { id: "rice", name: "粗米饭", type: "food", rarity: "凡品", desc: "寻常人家的主食，能果腹。", effect: { health: 5 } },
+  mantou: { id: "mantou", name: "白面馒头", type: "food", rarity: "凡品", desc: "松软可口，能恢复些许体力。", effect: { health: 10 } },
+  roubao: { id: "roubao", name: "肉包子", type: "food", rarity: "凡品", desc: "肉馅饱满，香气扑鼻。", effect: { health: 20 } },
+  yulingrou: { id: "yulingrou", name: "玉灵肉", type: "food", rarity: "灵品", desc: "灵兽之肉，蕴含灵气，食之可增气血。", effect: { health: 50, cultivation: 30 } },
+  longfengeng: { id: "longfengeng", name: "龙凤羹", type: "food", rarity: "宝品", desc: "以龙凤之肉熬制，大补元气。", effect: { health: 200, maxHealth: 20, cultivation: 200 } },
+  xianguo: { id: "xianguo", name: "仙桃", type: "food", rarity: "仙品", desc: "仙家果品，食之延年益寿。", effect: { health: 500, lifespan: 100, cultivation: 1000 } },
+  // 丹药
+  huixuandan: { id: "huixuandan", name: "回玄丹", type: "pill", rarity: "灵品", desc: "恢复灵力的常用丹药。", effect: { spirit: 50 } },
+  qixuedan: { id: "qixuedan", name: "气血丹", type: "pill", rarity: "灵品", desc: "恢复气血，疗伤圣品。", effect: { health: 100 } },
+  zhujidan: { id: "zhujidan", name: "筑基丹", type: "pill", rarity: "宝品", desc: "辅助筑基突破的丹药。", effect: { cultivation: 500 } },
+  jiejindan: { id: "jiejindan", name: "结金丹", type: "pill", rarity: "仙品", desc: "辅助结金丹境的珍贵丹药。", effect: { cultivation: 5000 } },
+  pojingdan: { id: "pojingdan", name: "破境丹", type: "pill", rarity: "仙品", desc: "强行突破一个小境界的逆天丹药。", effect: { cultivation: 99999 } },
+  // 灵物
+  lingcao: { id: "lingcao", name: "灵草", type: "spirit", rarity: "凡品", desc: "最普通的灵草，炼丹基础材料。", effect: {} },
+  xuelinghua: { id: "xuelinghua", name: "血灵花", type: "spirit", rarity: "灵品", desc: "生长于血腥之地，可炼血丹。", effect: {} },
+  xuanbingcao: { id: "xuanbingcao", name: "玄冰草", type: "spirit", rarity: "灵品", desc: "极寒之地的灵草，冰属性。", effect: {} },
+  xingchensha: { id: "xingchensha", name: "星辰砂", type: "spirit", rarity: "宝品", desc: "自星辰陨落的砂粒，蕴含星辰之力。", effect: {} },
+  longxu: { id: "longxu", name: "龙须", type: "spirit", rarity: "仙品", desc: "真龙的胡须，炼器极品材料。", effect: {} },
+  hundunguo: { id: "hundunguo", name: "混沌果", type: "spirit", rarity: "混沌", desc: "混沌中孕育的灵果，食之可悟大道。", effect: { cultivation: 999999, lifespan: 1000 } },
+  // 材料
+  xuantie: { id: "xuantie", name: "玄铁", type: "material", rarity: "灵品", desc: "坚硬的炼器材料。", effect: {} },
+  tiancai: { id: "tiancai", name: "天材", type: "material", rarity: "宝品", desc: "天地孕育的奇材。", effect: {} },
+  // 宝物
+  xumi_jie: { id: "xumi_jie", name: "须弥戒", type: "treasure", rarity: "灵品", desc: "储物法器，内含芥子空间。", effect: {} },
+  hunyuan_zhu: { id: "hunyuan_zhu", name: "混元珠", type: "treasure", rarity: "仙品", desc: "蕴含混元之力的宝珠，可加速修炼。", effect: {} },
+  taixujing: { id: "taixujing", name: "太虚镜", type: "treasure", rarity: "仙品", desc: "可照见虚妄，洞察万物本源。", effect: {} },
+  // 武器
+  tie_jian: { id: "tie_jian", name: "铁剑", type: "weapon", rarity: "凡品", desc: "普通铁剑，锋利一般。", effect: {} },
+  feijian: { id: "feijian", name: "飞剑", type: "weapon", rarity: "灵品", desc: "可御剑飞行的法器。", effect: {} },
+  // 防具
+  buyi: { id: "buyi", name: "布衣", type: "armor", rarity: "凡品", desc: "寻常布衣。", effect: {} },
+  // 灵石 (特殊货币)
+  spirit_stone: { id: "spirit_stone", name: "灵石", type: "material", rarity: "灵品", desc: "修仙界的通用货币。", effect: {} }
+};
+
+// 国家
+const COUNTRIES = {
+  dazhou: { id: "dazhou", name: "大周皇朝", region: "zhongyuan", desc: "中原正统皇朝，绵延八百年，国力鼎盛。", level: "皇朝" },
+  xuanming: { id: "xuanming", name: "玄冥国", region: "zhongyuan", desc: "崇尚玄冥之道的古国。", level: "王国" },
+  nanman_wang: { id: "nanman_wang", name: "南蛮王庭", region: "nanman", desc: "蛮族部落联盟的最高政权。", level: "王庭" },
+  xirong_han: { id: "xirong_han", name: "西戎汗国", region: "xirong", desc: "戈壁上的游牧汗国。", level: "汗国" },
+  beidi_guo: { id: "beidi_guo", name: "北狄冰国", region: "beidi", desc: "冰原上的苦寒国度。", level: "王国" },
+  dongyi_lian: { id: "dongyi_lian", name: "东夷群岛联盟", region: "dongyi", desc: "海岛城邦的松散联盟。", level: "联盟" }
+};
+
+// 宗门
+const SECTS = {
+  qingyun: { id: "qingyun", name: "青云宗", region: "zhongyuan", desc: "中原七大正道之首，剑修圣地。", level: "圣地" },
+  tianyin: { id: "tianyin", name: "天音寺", region: "zhongyuan", desc: "佛道大宗，普度众生。", level: "圣地" },
+  wanfa: { id: "wanfa", name: "万法宫", region: "zhongyuan", desc: "儒道正宗，以文入道。", level: "圣地" },
+  heihun: { id: "heihun", name: "黑魂教", region: "youyu", desc: "幽域魔修大教，行事诡秘。", level: "魔教" },
+  longgong: { id: "longgong", name: "龙宫", region: "wujinhaiyang", desc: "龙族统治的海底国度。", level: "龙族" },
+  jianzhong: { id: "jianzhong", name: "剑冢", region: "zhufengjing", desc: "逐风境中的剑修秘境。", level: "秘境" }
+};
+
+// 修仙者 NPC
+const CULTIVATORS = {
+  qingyun_zhanglao: { id: "qingyun_zhanglao", name: "青云长老", sect: "qingyun", realm: "化神期", desc: "青云宗的太上长老，实力深不可测。" },
+  mo_dao_ren: { id: "mo_dao_ren", name: "墨道人", sect: null, realm: "元婴期", desc: "游历天下的散修，精通炼器。" },
+  bai_gu_lao_zu: { id: "bai_gu_lao_zu", name: "白骨老祖", sect: "heihun", realm: "化神期", desc: "黑魂教的护教老祖，修白骨大法。" },
+  long_wang: { id: "long_wang", name: "东海龙王", sect: "longgong", realm: "渡劫期", desc: "东海龙族之王，威震四海。" }
+};
+
+// 获取物品信息
+function getItem(itemId) {
+  return ITEMS[itemId] || null;
+}
+// 获取物品显示信息
+function getItemInfo(itemId) {
+  const item = ITEMS[itemId];
+  if (!item) return { name: itemId, type: "未知", rarity: "凡品", desc: "" };
+  return item;
+}
+
 // 境界总数量
 const TOTAL_REALMS = 13;
 const SUB_REALM_COUNT = 4;
@@ -363,6 +518,11 @@ if (typeof window !== 'undefined') {
     SAVE_VERSION,
     SUB_REALMS,
     PATHS,
+    REGIONS,
+    ITEMS,
+    COUNTRIES,
+    SECTS,
+    CULTIVATORS,
     SKILLS,
     SKILL_CATEGORIES,
     TOTAL_REALMS,
@@ -372,7 +532,12 @@ if (typeof window !== 'undefined') {
     getPathList,
     getMainstreamPaths,
     getNichePaths,
-    getSkillCount
+    getSkillCount,
+    getMainRegions,
+    getSpecialRegions,
+    getAllRegions,
+    getItem,
+    getItemInfo
   };
 }
 
@@ -383,6 +548,11 @@ if (typeof module !== 'undefined' && module.exports) {
     SAVE_VERSION,
     SUB_REALMS,
     PATHS,
+    REGIONS,
+    ITEMS,
+    COUNTRIES,
+    SECTS,
+    CULTIVATORS,
     SKILLS,
     SKILL_CATEGORIES,
     TOTAL_REALMS,
@@ -392,6 +562,11 @@ if (typeof module !== 'undefined' && module.exports) {
     getPathList,
     getMainstreamPaths,
     getNichePaths,
-    getSkillCount
+    getSkillCount,
+    getMainRegions,
+    getSpecialRegions,
+    getAllRegions,
+    getItem,
+    getItemInfo
   };
 }

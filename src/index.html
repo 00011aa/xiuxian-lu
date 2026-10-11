@@ -27,23 +27,75 @@
     <div id="screen-create" class="screen">
       <div class="create-container">
         <h2 class="section-title">踏入仙途</h2>
+        <!-- 步骤指示 -->
+        <div class="create-steps">
+          <div class="step active" data-step="1">① 性别</div>
+          <div class="step" data-step="2">② 道号</div>
+          <div class="step" data-step="3">③ 出身</div>
+          <div class="step" data-step="4">④ 天赋</div>
+        </div>
+
         <div class="create-form">
-          <div class="form-group">
-            <label>道号</label>
-            <input type="text" id="input-name" maxlength="12" placeholder="请输入道号" value="无名">
-          </div>
-          <div class="form-group">
-            <label>选择流派</label>
-            <div class="path-tabs">
-              <button class="path-tab active" data-type="mainstream">主流流派</button>
-              <button class="path-tab" data-type="niche">小众流派</button>
+          <!-- 步骤1：性别 -->
+          <div class="create-step-panel active" data-step="1">
+            <div class="form-group">
+              <label>选择性别</label>
+              <div class="gender-options">
+                <div class="gender-card" data-gender="男">
+                  <div class="gender-icon">♂</div>
+                  <div class="gender-name">男</div>
+                </div>
+                <div class="gender-card" data-gender="女">
+                  <div class="gender-icon">♀</div>
+                  <div class="gender-name">女</div>
+                </div>
+                <div class="gender-card" data-gender="无性别">
+                  <div class="gender-icon">○</div>
+                  <div class="gender-name">无性别</div>
+                </div>
+              </div>
             </div>
-            <div id="path-list" class="path-list"></div>
           </div>
-          <div id="path-desc" class="path-desc"></div>
+
+          <!-- 步骤2：名字 -->
+          <div class="create-step-panel" data-step="2">
+            <div class="form-group">
+              <label>道号</label>
+              <input type="text" id="input-name" maxlength="12" placeholder="请输入道号" value="无名">
+              <div class="form-hint">道号将伴随你一生，最长 12 字</div>
+            </div>
+          </div>
+
+          <!-- 步骤3：地区 -->
+          <div class="create-step-panel" data-step="3">
+            <div class="form-group">
+              <label>选择出身之地</label>
+              <div class="region-tabs">
+                <button class="region-tab active" data-rtype="main">五大主域</button>
+                <button class="region-tab" data-rtype="special">奇域秘境</button>
+              </div>
+              <div id="region-list" class="region-list"></div>
+              <div id="region-desc" class="region-desc"></div>
+            </div>
+          </div>
+
+          <!-- 步骤4：五维属性 -->
+          <div class="create-step-panel" data-step="4">
+            <div class="form-group">
+              <label>天赋根骨（系统随机分配，每项 1~10 点）</label>
+              <div id="attr-list" class="attr-list"></div>
+              <div class="attr-total">
+                <span>总点数：<span id="attr-total-value">0</span></span>
+                <button id="btn-reroll-attr" class="menu-btn small">重新随机</button>
+              </div>
+            </div>
+          </div>
+
           <div class="form-actions">
             <button id="btn-create-back" class="menu-btn secondary">返回</button>
-            <button id="btn-create-confirm" class="menu-btn">确认入门</button>
+            <button id="btn-create-prev" class="menu-btn secondary">上一步</button>
+            <button id="btn-create-next" class="menu-btn">下一步</button>
+            <button id="btn-create-confirm" class="menu-btn primary hidden">踏入仙途</button>
           </div>
         </div>
       </div>
@@ -132,6 +184,7 @@
                   <button id="btn-cultivate" class="action-btn primary">修炼</button>
                   <button id="btn-breakthrough" class="action-btn">突破</button>
                   <button id="btn-meditate" class="action-btn">打坐</button>
+                  <button id="btn-choose-path" class="action-btn special hidden">选择流派</button>
                 </div>
                 <div id="cultivate-result" class="result-msg"></div>
               </div>
@@ -175,11 +228,24 @@
                 <h3>基本信息</h3>
                 <div class="status-grid">
                   <div class="status-item"><span class="label">道号</span><span id="st-name">-</span></div>
+                  <div class="status-item"><span class="label">性别</span><span id="st-gender">-</span></div>
+                  <div class="status-item"><span class="label">出身</span><span id="st-region">-</span></div>
+                  <div class="status-item"><span class="label">所在地</span><span id="st-location">-</span></div>
                   <div class="status-item"><span class="label">流派</span><span id="st-path">-</span></div>
                   <div class="status-item"><span class="label">境界</span><span id="st-realm">-</span></div>
                   <div class="status-item"><span class="label">年龄</span><span id="st-age">-</span></div>
                   <div class="status-item"><span class="label">寿命</span><span id="st-lifespan">-</span></div>
                   <div class="status-item"><span class="label">游戏时长</span><span id="st-playtime">-</span></div>
+                </div>
+              </div>
+              <div class="status-section">
+                <h3>天赋根骨</h3>
+                <div class="status-grid">
+                  <div class="status-item"><span class="label">力量</span><span id="st-strength">-</span></div>
+                  <div class="status-item"><span class="label">悟性</span><span id="st-wisdom">-</span></div>
+                  <div class="status-item"><span class="label">敏捷</span><span id="st-agility">-</span></div>
+                  <div class="status-item"><span class="label">运势</span><span id="st-luck">-</span></div>
+                  <div class="status-item"><span class="label">精神</span><span id="st-spirit-attr">-</span></div>
                 </div>
               </div>
               <div class="status-section">
@@ -210,6 +276,22 @@
                 <p>修仙百艺，共一百种技能，涵盖炼丹、炼器、阵法、符箓、傀儡、种植等诸多门类。</p>
                 <p>无论何派，皆有十三大境界，每境分初期、中期、后期、圆满四小境。</p>
               </div>
+
+              <div class="world-sections">
+                <h3>天下区域</h3>
+                <div id="world-regions-list" class="world-regions-list"></div>
+              </div>
+
+              <div class="world-sections">
+                <h3>诸国林立</h3>
+                <div id="world-countries-list" class="world-countries-list"></div>
+              </div>
+
+              <div class="world-sections">
+                <h3>宗门势力</h3>
+                <div id="world-sects-list" class="world-sects-list"></div>
+              </div>
+
               <div class="world-paths">
                 <h3>流派境界总览</h3>
                 <div id="world-paths-list" class="world-paths-list"></div>

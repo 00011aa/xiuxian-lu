@@ -257,6 +257,301 @@ html, body {
   min-height: 60px;
 }
 
+/* ========== 角色创建 - 步骤 ========== */
+.create-steps {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.create-steps .step {
+  padding: 8px 18px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+.create-steps .step.active {
+  background: linear-gradient(135deg, #2a2a5a, #1a1a3a);
+  border-color: var(--gold);
+  color: var(--gold-light);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.create-step-panel {
+  display: none;
+}
+.create-step-panel.active {
+  display: block;
+  animation: fadeIn 0.3s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.form-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.menu-btn.small {
+  padding: 6px 14px;
+  font-size: 13px;
+}
+
+.menu-btn.primary {
+  background: linear-gradient(135deg, #d4af37, #b8941f);
+  color: #1a1a2e;
+  border-color: #d4af37;
+}
+.menu-btn.primary:hover {
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+/* ========== 性别选择 ========== */
+.gender-options {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+.gender-card {
+  width: 120px;
+  padding: 30px 20px;
+  background: var(--bg-tertiary);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+}
+.gender-card:hover {
+  border-color: var(--border-glow);
+  transform: translateY(-2px);
+}
+.gender-card.selected {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, #2a2a5a, #1a1a3a);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+.gender-icon {
+  font-size: 40px;
+  color: var(--gold-light);
+  margin-bottom: 10px;
+}
+.gender-name {
+  font-size: 18px;
+  color: var(--text-primary);
+}
+
+/* ========== 地区选择 ========== */
+.region-tabs {
+  display: flex;
+  gap: 10px;
+}
+.region-tab {
+  padding: 8px 20px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.region-tab.active {
+  background: var(--bg-card);
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+.region-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+.region-card {
+  padding: 16px;
+  background: var(--bg-tertiary);
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+}
+.region-card:hover {
+  border-color: var(--border-glow);
+  background: var(--bg-card);
+}
+.region-card.selected {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, #2a2a5a, #1a1a3a);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+.region-card .region-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.region-card .region-type {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.region-desc {
+  padding: 16px;
+  background: var(--bg-card);
+  border-left: 3px solid var(--gold);
+  border-radius: 4px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  min-height: 50px;
+}
+
+/* ========== 五维属性 ========== */
+.attr-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.attr-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  background: var(--bg-tertiary);
+  border-radius: 6px;
+}
+.attr-name {
+  width: 60px;
+  font-size: 16px;
+  color: var(--gold-light);
+  font-weight: bold;
+}
+.attr-stars {
+  flex: 1;
+  color: var(--gold);
+  letter-spacing: 2px;
+  font-size: 16px;
+}
+.attr-value {
+  width: 40px;
+  text-align: right;
+  color: var(--text-primary);
+  font-weight: bold;
+}
+.attr-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: var(--bg-card);
+  border-radius: 6px;
+  color: var(--text-secondary);
+}
+
+/* ========== 修炼 - 选择流派按钮 ========== */
+.action-btn.special {
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  border-color: #a78bfa;
+}
+.action-btn.special:hover {
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+}
+
+.realm-tip {
+  padding: 20px;
+  text-align: center;
+  color: var(--text-muted);
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+/* ========== 背包物品 ========== */
+.item-card {
+  padding: 12px;
+  background: var(--bg-tertiary);
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+}
+.item-icon {
+  font-size: 28px;
+  text-align: center;
+}
+.item-name {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+.item-rarity {
+  font-size: 11px;
+  text-align: center;
+}
+.item-count {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.item-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.4;
+}
+.item-use {
+  margin-top: 6px;
+  padding: 4px;
+  font-size: 12px;
+}
+
+/* ========== 模态框扩展 ========== */
+.modal-content.wide {
+  max-width: 700px;
+  width: 90%;
+}
+.modal-hint {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* ========== 天地 - 区域/国家/宗门 ========== */
+.world-sections {
+  margin-top: 24px;
+}
+.world-region-item,
+.world-country-item,
+.world-sect-item {
+  padding: 12px 16px;
+  background: var(--bg-tertiary);
+  border-left: 3px solid var(--gold);
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+.wr-name, .wc-name, .ws-name {
+  font-size: 16px;
+  color: var(--gold-light);
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+.wr-desc, .wc-desc, .ws-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.wc-region, .ws-region {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
 .form-actions {
   display: flex;
   justify-content: center;
@@ -1004,6 +1299,10 @@ html, body {
 
 .modal.hidden {
   display: none;
+}
+
+.hidden {
+  display: none !important;
 }
 
 .modal-content {

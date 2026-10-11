@@ -10,12 +10,38 @@ const GameEngine = {
 
   /**
    * 初始化新游戏
+   * @param {Object} options - { name, gender, region, attrs: {strength, wisdom, agility, luck, spirit_attr} }
    */
-  startNewGame(playerName, pathId) {
-    this.state = window.SaveSystem.createNewSave(playerName, pathId);
+  startNewGame(options) {
+    this.state = window.SaveSystem.createNewSave(options);
     this.notifyListeners();
     this.startAutoSave();
     return this.state;
+  },
+
+  /**
+   * 在游戏内选择流派（入门）
+   */
+  choosePath(pathId) {
+    if (!this.state) return { success: false, msg: "无游戏状态" };
+    if (this.state.flags.pathChosen) {
+      return { success: false, msg: "已入门，不可改换门庭" };
+    }
+    const path = window.GameData.PATHS[pathId];
+    if (!path) return { success: false, msg: "流派不存在" };
+
+    const p = this.state.player;
+    p.pathId = pathId;
+    p.pathName = path.name;
+    p.realmIndex = 0;
+    p.subRealmIndex = 0;
+    p.realmName = window.GameData.getRealmName(pathId, 0, 0);
+    p.cultivation = 0;
+    p.maxCultivation = window.GameData.getRequirement(0, 0);
+    this.state.flags.pathChosen = true;
+
+    this.notifyListeners();
+    return { success: true, path: path.name };
   },
 
   /**
@@ -59,17 +85,28 @@ const GameEngine = {
   cultivate() {
     if (!this.state) return { success: false, msg: "无游戏状态" };
     const p = this.state.player;
-    
+
+    // 未选择流派时只能做基础吐纳，效率极低
+    if (!p.pathId) {
+      const gain = Math.floor(2 + Math.random() * 3);
+      p.cultivation += gain;
+      p.spirit = Math.max(0, p.spirit - 3);
+      this.state.stats.totalCultivation += gain;
+      this.notifyListeners();
+      return { success: true, gain, breakthrough: false, msg: "未入门，吐纳所得甚微" };
+    }
+
     // 检查是否已满级
-    if (p.realmIndex >= window.GameData.TOTAL_REALMS - 1 && 
+    if (p.realmIndex >= window.GameData.TOTAL_REALMS - 1 &&
         p.subRealmIndex >= window.GameData.SUB_REALM_COUNT - 1) {
       return { success: false, msg: "已达巅峰境界，再无可修" };
     }
 
-    // 计算修炼效率（基于当前境界）
-    const efficiency = 1 + p.realmIndex * 0.3;
+    // 计算修炼效率（基于悟性和当前境界）
+    const wisdomBonus = 1 + (p.wisdom - 5) * 0.05;
+    const efficiency = (1 + p.realmIndex * 0.3) * wisdomBonus;
     const gain = Math.floor(10 * efficiency * (0.8 + Math.random() * 0.4));
-    
+
     p.cultivation += gain;
     p.spirit = Math.max(0, p.spirit - 5);
     this.state.stats.totalCultivation += gain;
@@ -91,6 +128,12 @@ const GameEngine = {
    */
   tryBreakthrough() {
     const p = this.state.player;
+
+    // 未入门无法突破
+    if (!p.pathId) {
+      return { success: false, msg: "尚未入门，何谈突破" };
+    }
+
     const path = window.GameData.PATHS[p.pathId];
     
     // 已满级
@@ -212,6 +255,66 @@ const GameEngine = {
     p.health = Math.min(p.maxHealth, p.health + 10);
     this.notifyListeners();
     return { success: true, spirit: p.spirit, health: p.health };
+  },
+
+  /**
+   * 使用物品（食物/丹药等）
+   */
+  useItem(itemId) {
+    if (!this.state) return { success: false, msg: "无游戏状态" };
+    const count = this.state.inventory[itemId] || 0;
+    if (count <= 0) return { success: false, msg: "物品不足" };
+
+    const item = window.GameData.ITEMS[itemId];
+    if (!item) return { success: false, msg: "未知物品" };
+
+    const p = this.state.player;
+    const effect = item.effect || {};
+    const msgs = [];
+
+    if (effect.health) {
+      p.health = Math.min(p.maxHealth, p.health + effect.health);
+      msgs.push(`气血+${effect.health}`);
+    }
+    if (effect.maxHealth) {
+      p.maxHealth += effect.maxHealth;
+      p.health += effect.maxHealth;
+      msgs.push(`最大气血+${effect.maxHealth}`);
+    }
+    if (effect.spirit) {
+      p.spirit = Math.min(p.maxSpirit, p.spirit + effect.spirit);
+      msgs.push(`灵力+${effect.spirit}`);
+    }
+    if (effect.cultivation) {
+      p.cultivation += effect.cultivation;
+      this.state.stats.totalCultivation += effect.cultivation;
+      msgs.push(`修为+${effect.cultivation}`);
+      // 检查突破
+      if (p.pathId && p.cultivation >= p.maxCultivation) {
+        this.tryBreakthrough();
+      }
+    }
+    if (effect.lifespan) {
+      p.lifespan += effect.lifespan;
+      msgs.push(`寿命+${effect.lifespan}`);
+    }
+
+    this.state.inventory[itemId]--;
+    if (this.state.inventory[itemId] <= 0) {
+      delete this.state.inventory[itemId];
+    }
+
+    this.notifyListeners();
+    return { success: true, msg: `使用了${item.name}。${msgs.join("，")}` };
+  },
+
+  /**
+   * 获得物品
+   */
+  addItem(itemId, count = 1) {
+    if (!this.state) return;
+    this.state.inventory[itemId] = (this.state.inventory[itemId] || 0) + count;
+    this.notifyListeners();
   },
 
   /**
