@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>修仙录</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- 开始界面 -->
+    <div id="screen-start" class="screen active">
+      <div class="start-container">
+        <h1 class="game-title">修 仙 录</h1>
+        <p class="game-subtitle">— 单机修仙 · 万古长存 —</p>
+        <div class="start-menu">
+          <button id="btn-new-game" class="menu-btn">开始新游戏</button>
+          <button id="btn-load-game" class="menu-btn">读取存档</button>
+          <button id="btn-import-save" class="menu-btn">导入存档</button>
+          <button id="btn-about" class="menu-btn">关于</button>
+        </div>
+        <div class="version-info">v <span id="app-version">1.0.0</span></div>
+      </div>
+    </div>
+
+    <!-- 角色创建界面 -->
+    <div id="screen-create" class="screen">
+      <div class="create-container">
+        <h2 class="section-title">踏入仙途</h2>
+        <div class="create-form">
+          <div class="form-group">
+            <label>道号</label>
+            <input type="text" id="input-name" maxlength="12" placeholder="请输入道号" value="无名">
+          </div>
+          <div class="form-group">
+            <label>选择流派</label>
+            <div class="path-tabs">
+              <button class="path-tab active" data-type="mainstream">主流流派</button>
+              <button class="path-tab" data-type="niche">小众流派</button>
+            </div>
+            <div id="path-list" class="path-list"></div>
+          </div>
+          <div id="path-desc" class="path-desc"></div>
+          <div class="form-actions">
+            <button id="btn-create-back" class="menu-btn secondary">返回</button>
+            <button id="btn-create-confirm" class="menu-btn">确认入门</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 存档列表界面 -->
+    <div id="screen-load" class="screen">
+      <div class="load-container">
+        <h2 class="section-title">读取存档</h2>
+        <div id="save-list" class="save-list"></div>
+        <div class="form-actions">
+          <button id="btn-load-back" class="menu-btn secondary">返回</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主游戏界面 -->
+    <div id="screen-game" class="screen">
+      <div class="game-layout">
+        <!-- 顶部状态栏 -->
+        <header class="game-header">
+          <div class="header-left">
+            <span class="player-name" id="hud-name">无名</span>
+            <span class="player-path" id="hud-path">仙道</span>
+            <span class="player-realm" id="hud-realm">练气期初期</span>
+          </div>
+          <div class="header-center">
+            <div class="cultivation-bar">
+              <div class="bar-fill" id="hud-cultivation-fill"></div>
+              <span class="bar-text" id="hud-cultivation-text">0 / 100</span>
+            </div>
+          </div>
+          <div class="header-right">
+            <span class="hud-stats" id="hud-age">年龄: 16</span>
+            <span class="hud-stats" id="hud-spirit">灵力: 100/100</span>
+            <span class="hud-stats" id="hud-stone">灵石: 0</span>
+          </div>
+        </header>
+
+        <!-- 侧边导航 -->
+        <nav class="game-nav">
+          <button class="nav-btn active" data-tab="cultivate">
+            <span class="nav-icon">修</span>
+            <span>修炼</span>
+          </button>
+          <button class="nav-btn" data-tab="skills">
+            <span class="nav-icon">艺</span>
+            <span>百艺</span>
+          </button>
+          <button class="nav-btn" data-tab="inventory">
+            <span class="nav-icon">物</span>
+            <span>储物</span>
+          </button>
+          <button class="nav-btn" data-tab="status">
+            <span class="nav-icon">息</span>
+            <span>信息</span>
+          </button>
+          <button class="nav-btn" data-tab="world">
+            <span class="nav-icon">界</span>
+            <span>天地</span>
+          </button>
+          <button class="nav-btn" data-tab="save">
+            <span class="nav-icon">档</span>
+            <span>存档</span>
+          </button>
+        </nav>
+
+        <!-- 内容区 -->
+        <main class="game-content">
+          <!-- 修炼面板 -->
+          <div id="tab-cultivate" class="tab-panel active">
+            <div class="cultivate-panel">
+              <div class="cultivate-main">
+                <div class="realm-display">
+                  <div class="realm-name" id="cult-realm-name">练气期初期</div>
+                  <div class="realm-path" id="cult-path-name">仙道</div>
+                </div>
+                <div class="cultivation-progress">
+                  <div class="progress-label">修为进度</div>
+                  <div class="progress-bar large">
+                    <div class="progress-fill" id="cult-progress-fill"></div>
+                    <span class="progress-text" id="cult-progress-text">0 / 100</span>
+                  </div>
+                </div>
+                <div class="cultivate-actions">
+                  <button id="btn-cultivate" class="action-btn primary">修炼</button>
+                  <button id="btn-breakthrough" class="action-btn">突破</button>
+                  <button id="btn-meditate" class="action-btn">打坐</button>
+                </div>
+                <div id="cultivate-result" class="result-msg"></div>
+              </div>
+              <div class="cultivate-side">
+                <div class="info-card">
+                  <h3>境界一览</h3>
+                  <div id="realm-list" class="realm-list"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 技能面板 -->
+          <div id="tab-skills" class="tab-panel">
+            <div class="skills-panel">
+              <div class="skills-sidebar">
+                <div class="skill-category-list" id="skill-categories"></div>
+              </div>
+              <div class="skills-main">
+                <div class="skills-header">
+                  <h2 id="skill-category-title">全部技能</h2>
+                  <span class="skills-count" id="skills-count">已学 0 / 100</span>
+                </div>
+                <div id="skills-grid" class="skills-grid"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 背包面板 -->
+          <div id="tab-inventory" class="tab-panel">
+            <div class="inventory-panel">
+              <h2>储物袋</h2>
+              <div id="inventory-grid" class="inventory-grid"></div>
+            </div>
+          </div>
+
+          <!-- 状态面板 -->
+          <div id="tab-status" class="tab-panel">
+            <div class="status-panel">
+              <div class="status-section">
+                <h3>基本信息</h3>
+                <div class="status-grid">
+                  <div class="status-item"><span class="label">道号</span><span id="st-name">-</span></div>
+                  <div class="status-item"><span class="label">流派</span><span id="st-path">-</span></div>
+                  <div class="status-item"><span class="label">境界</span><span id="st-realm">-</span></div>
+                  <div class="status-item"><span class="label">年龄</span><span id="st-age">-</span></div>
+                  <div class="status-item"><span class="label">寿命</span><span id="st-lifespan">-</span></div>
+                  <div class="status-item"><span class="label">游戏时长</span><span id="st-playtime">-</span></div>
+                </div>
+              </div>
+              <div class="status-section">
+                <h3>修为属性</h3>
+                <div class="status-grid">
+                  <div class="status-item"><span class="label">气血</span><span id="st-health">-</span></div>
+                  <div class="status-item"><span class="label">灵力</span><span id="st-spirit">-</span></div>
+                  <div class="status-item"><span class="label">总修为</span><span id="st-total-cult">-</span></div>
+                  <div class="status-item"><span class="label">突破次数</span><span id="st-breakthrough">-</span></div>
+                  <div class="status-item"><span class="label">已学技能</span><span id="st-skills">-</span></div>
+                </div>
+              </div>
+              <div class="status-section">
+                <h3>当前境界详情</h3>
+                <div id="realm-detail" class="realm-detail"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 天地（世界观）面板 -->
+          <div id="tab-world" class="tab-panel">
+            <div class="world-panel">
+              <h2>天地大观</h2>
+              <div class="world-info">
+                <p>修仙世界广袤无垠，流派众多，百艺繁兴。</p>
+                <p>主流修行流派有七：仙道、武道、儒道、佛修、魔修、妖修、鬼修。</p>
+                <p>另有小众流派如剑修、丹修、体修、蛊修、乐修、医修、虫修、画修等，不可胜数。</p>
+                <p>修仙百艺，共一百种技能，涵盖炼丹、炼器、阵法、符箓、傀儡、种植等诸多门类。</p>
+                <p>无论何派，皆有十三大境界，每境分初期、中期、后期、圆满四小境。</p>
+              </div>
+              <div class="world-paths">
+                <h3>流派境界总览</h3>
+                <div id="world-paths-list" class="world-paths-list"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 存档面板 -->
+          <div id="tab-save" class="tab-panel">
+            <div class="save-panel">
+              <h2>存档管理</h2>
+              <div class="save-actions">
+                <button id="btn-save-manual" class="action-btn primary">保存游戏</button>
+                <button id="btn-export-save" class="action-btn">导出存档</button>
+                <button id="btn-return-title" class="action-btn secondary">返回标题</button>
+              </div>
+              <div class="save-info">
+                <p>游戏每 30 秒自动保存一次。</p>
+                <p>存档位置：<span id="save-dir">-</span></p>
+              </div>
+              <div id="save-result" class="result-msg"></div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- 关于弹窗 -->
+    <div id="modal-about" class="modal hidden">
+      <div class="modal-content">
+        <h2>关于 修仙录</h2>
+        <p>版本: <span id="about-version">1.0.0</span></p>
+        <p>一款单机修仙游戏。</p>
+        <p>存档采用本地文件存储，关机重启不丢失。</p>
+        <p>数据与存档分离设计，版本更新不会损坏存档。</p>
+        <button class="menu-btn" onclick="UI.closeModal('about')">知道了</button>
+      </div>
+    </div>
+
+    <!-- 通用提示弹窗 -->
+    <div id="modal-alert" class="modal hidden">
+      <div class="modal-content">
+        <p id="alert-message"></p>
+        <button class="menu-btn" onclick="UI.closeModal('alert')">确定</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/gameData.js"></script>
+  <script src="js/saveSystem.js"></script>
+  <script src="js/gameEngine.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>
