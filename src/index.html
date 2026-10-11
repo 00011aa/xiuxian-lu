@@ -340,6 +340,32 @@
     </div>
   </div>
 
+  <script>
+    // 全局错误捕获：任何未捕获的 JS 错误都会显示在屏幕上，便于排查
+    window.addEventListener('error', function(e) {
+      var box = document.getElementById('global-error-box');
+      if (!box) {
+        box = document.createElement('div');
+        box.id = 'global-error-box';
+        box.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:#8b0000;color:#fff;padding:12px 20px;font-size:13px;font-family:monospace;max-height:40vh;overflow:auto;white-space:pre-wrap;word-break:break-all;';
+        document.body.appendChild(box);
+      }
+      var msg = '【错误】' + (e.message || e.error) + '\n' + (e.filename || '') + ':' + (e.lineno || '') + '\n' + (e.error && e.error.stack ? e.error.stack : '');
+      box.textContent = msg;
+      console.error('GLOBAL ERROR:', e.error || e.message, e);
+    });
+    window.addEventListener('unhandledrejection', function(e) {
+      var box = document.getElementById('global-error-box');
+      if (!box) {
+        box = document.createElement('div');
+        box.id = 'global-error-box';
+        box.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:#8b0000;color:#fff;padding:12px 20px;font-size:13px;font-family:monospace;max-height:40vh;overflow:auto;white-space:pre-wrap;word-break:break-all;';
+        document.body.appendChild(box);
+      }
+      box.textContent = '【Promise错误】' + (e.reason && e.reason.message ? e.reason.message : e.reason);
+      console.error('UNHANDLED REJECTION:', e.reason);
+    });
+  </script>
   <script src="js/gameData.js"></script>
   <script src="js/saveSystem.js"></script>
   <script src="js/gameEngine.js"></script>

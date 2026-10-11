@@ -37,6 +37,9 @@ function createWindow() {
   mainWindow.setMenuBarVisibility(false);
   mainWindow.loadFile(path.join(__dirname, 'src', 'index.html'));
 
+  // 临时开启开发者工具便于调试
+  mainWindow.webContents.openDevTools({ mode: 'detach' });
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
@@ -79,7 +82,7 @@ ipcMain.handle('list-saves', () => {
         saves.push({
           fileName: file,
           name: data.player?.name || '无名',
-          path: data.player?.path || '未知',
+          path: data.player?.pathName || data.player?.path || '未知',
           realm: data.player?.realmName || '未知',
           playTime: data.player?.playTime || 0,
           savedAt: data.meta?.savedAt || 0,

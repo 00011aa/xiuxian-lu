@@ -9,7 +9,7 @@
  * 版本: 1.0.0
  */
 
-const GAME_VERSION = "1.0.0";
+const GAME_VERSION = "1.1.0";
 const SAVE_VERSION = 1;
 
 // 小境界名称

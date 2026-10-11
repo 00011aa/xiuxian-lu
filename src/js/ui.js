@@ -38,9 +38,11 @@ const UI = {
   // ========== 开始界面 ==========
   bindStartScreen() {
     document.getElementById('btn-new-game').addEventListener('click', () => {
+      console.log('[修仙录] 点击 开始新游戏');
       this.resetCreateState();
       this.showScreen('screen-create');
       this.renderCreateStep();
+      console.log('[修仙录] 角色创建界面已显示');
     });
 
     document.getElementById('btn-load-game').addEventListener('click', () => {
@@ -227,8 +229,10 @@ const UI = {
   },
 
   confirmCreate() {
+    console.log('[修仙录] confirmCreate 被调用, step=', this.createStep, 'gender=', this.createGender, 'region=', this.createRegion);
     if (!this.validateCreateStep()) return;
     const name = document.getElementById('input-name').value.trim() || '无名';
+    console.log('[修仙录] 道号:', name, '属性:', JSON.stringify(this.createAttrs));
 
     window.GameEngine.startNewGame({
       name: name,
@@ -236,9 +240,12 @@ const UI = {
       region: this.createRegion,
       attrs: this.createAttrs
     });
+    console.log('[修仙录] startNewGame 完成, state=', !!window.GameEngine.state);
 
     this.showScreen('screen-game');
+    console.log('[修仙录] 切换到游戏屏幕');
     this.refreshAll();
+    console.log('[修仙录] refreshAll 完成, 进入游戏成功');
   },
 
   // ========== 游戏内流派选择 ==========
@@ -818,7 +825,17 @@ const UI = {
 
 // 启动
 window.addEventListener('DOMContentLoaded', () => {
-  UI.init();
+  try {
+    UI.init();
+    console.log('[修仙录] UI 初始化完成');
+  } catch (e) {
+    console.error('[修仙录] UI 初始化失败:', e);
+    // 在屏幕上显示错误
+    var box = document.createElement('div');
+    box.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:#8b0000;color:#fff;padding:20px;font-family:monospace;font-size:14px;white-space:pre-wrap;';
+    box.textContent = 'UI 初始化失败:\n' + e.message + '\n\n' + (e.stack || '');
+    document.body.appendChild(box);
+  }
 });
 
 // 游戏时长计时器
