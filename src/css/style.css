@@ -1,0 +1,1065 @@
+/* ========== 修仙录 - 全局样式 ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-primary: #0a0a1a;
+  --bg-secondary: #12122a;
+  --bg-tertiary: #1a1a3a;
+  --bg-card: #1e1e40;
+  --border-color: #3a3a6a;
+  --border-glow: #5a5aaa;
+  --text-primary: #e8e8f0;
+  --text-secondary: #a0a0c0;
+  --text-muted: #707090;
+  --gold: #d4af37;
+  --gold-light: #f0d060;
+  --immortal: #7fffaa;
+  --martial: #ff7f50;
+  --confucian: #4da6ff;
+  --buddha: #ffd700;
+  --demon: #ff4444;
+  --monster: #9966ff;
+  --ghost: #88ddff;
+  --danger: #ff5555;
+  --success: #55ff99;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "Microsoft YaHei", "PingFang SC", "SimHei", sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* ========== 屏幕切换 ========== */
+.screen {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.screen.active {
+  display: flex;
+}
+
+/* ========== 开始界面 ========== */
+#screen-start {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(ellipse at center, #1a1a3a 0%, #0a0a1a 70%);
+}
+
+.start-container {
+  text-align: center;
+}
+
+.game-title {
+  font-size: 72px;
+  font-weight: bold;
+  color: var(--gold);
+  text-shadow: 0 0 30px rgba(212, 175, 55, 0.6), 0 0 60px rgba(212, 175, 55, 0.3);
+  letter-spacing: 20px;
+  margin-bottom: 10px;
+  animation: glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 30px rgba(212, 175, 55, 0.6), 0 0 60px rgba(212, 175, 55, 0.3); }
+  to { text-shadow: 0 0 40px rgba(212, 175, 55, 0.8), 0 0 80px rgba(212, 175, 55, 0.5); }
+}
+
+.game-subtitle {
+  font-size: 18px;
+  color: var(--text-secondary);
+  letter-spacing: 8px;
+  margin-bottom: 60px;
+}
+
+.start-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.menu-btn {
+  width: 240px;
+  padding: 14px 32px;
+  font-size: 18px;
+  background: linear-gradient(135deg, #2a2a5a, #1a1a3a);
+  border: 1px solid var(--border-glow);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s;
+  letter-spacing: 4px;
+  border-radius: 4px;
+}
+
+.menu-btn:hover {
+  background: linear-gradient(135deg, #3a3a7a, #2a2a5a);
+  border-color: var(--gold);
+  color: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+}
+
+.menu-btn.secondary {
+  background: linear-gradient(135deg, #2a2a3a, #1a1a2a);
+  border-color: var(--border-color);
+}
+
+.version-info {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* ========== 角色创建 ========== */
+#screen-create, #screen-load {
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  background: radial-gradient(ellipse at top, #1a1a3a 0%, #0a0a1a 70%);
+  overflow-y: auto;
+}
+
+.section-title {
+  font-size: 32px;
+  color: var(--gold);
+  margin-bottom: 30px;
+  letter-spacing: 8px;
+  text-align: center;
+}
+
+.create-container, .load-container {
+  width: 100%;
+  max-width: 800px;
+}
+
+.create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-group label {
+  font-size: 16px;
+  color: var(--gold-light);
+  letter-spacing: 2px;
+}
+
+.form-group input[type="text"] {
+  padding: 12px 16px;
+  font-size: 16px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 4px;
+  outline: none;
+}
+
+.form-group input[type="text"]:focus {
+  border-color: var(--gold);
+}
+
+.path-tabs {
+  display: flex;
+  gap: 10px;
+}
+
+.path-tab {
+  padding: 8px 20px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.path-tab.active {
+  background: var(--bg-card);
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+
+.path-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.path-card {
+  padding: 16px;
+  background: var(--bg-tertiary);
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.path-card:hover {
+  border-color: var(--border-glow);
+  background: var(--bg-card);
+}
+
+.path-card.selected {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, #2a2a5a, #1a1a3a);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.path-card .path-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.path-card .path-type {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.path-desc {
+  padding: 16px;
+  background: var(--bg-card);
+  border-left: 3px solid var(--gold);
+  border-radius: 4px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  min-height: 60px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* ========== 存档列表 ========== */
+.save-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.save-item {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  gap: 20px;
+}
+
+.save-item:hover {
+  border-color: var(--border-glow);
+}
+
+.save-item .save-icon {
+  font-size: 32px;
+  color: var(--gold);
+}
+
+.save-item .save-info {
+  flex: 1;
+}
+
+.save-item .save-name {
+  font-size: 18px;
+  color: var(--gold-light);
+  margin-bottom: 4px;
+}
+
+.save-item .save-detail {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.save-item .save-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.save-empty {
+  text-align: center;
+  padding: 60px;
+  color: var(--text-muted);
+  font-size: 16px;
+}
+
+.small-btn {
+  padding: 8px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.small-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+
+.small-btn.danger:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* ========== 主游戏界面布局 ========== */
+#screen-game {
+  flex-direction: column;
+}
+
+.game-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.game-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  gap: 20px;
+  min-height: 50px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 320px;
+}
+
+.player-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--gold-light);
+}
+
+.player-path {
+  font-size: 13px;
+  color: var(--text-secondary);
+  padding: 2px 8px;
+  background: var(--bg-tertiary);
+  border-radius: 3px;
+}
+
+.player-realm {
+  font-size: 14px;
+  color: var(--immortal);
+}
+
+.header-center {
+  flex: 1;
+  max-width: 400px;
+}
+
+.cultivation-bar {
+  position: relative;
+  height: 20px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #5a5aaa, #8a8aff);
+  transition: width 0.3s;
+}
+
+.bar-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 11px;
+  color: var(--text-primary);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 300px;
+  justify-content: flex-end;
+}
+
+.hud-stats {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.game-nav {
+  display: flex;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 10px;
+}
+
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 24px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 13px;
+  gap: 4px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.nav-btn:hover {
+  color: var(--text-secondary);
+  background: var(--bg-tertiary);
+}
+
+.nav-btn.active {
+  color: var(--gold-light);
+  border-bottom-color: var(--gold);
+}
+
+.nav-icon {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.game-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background: var(--bg-primary);
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+/* ========== 修炼面板 ========== */
+.cultivate-panel {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+  height: 100%;
+}
+
+.cultivate-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  padding: 30px;
+}
+
+.realm-display {
+  text-align: center;
+}
+
+.realm-name {
+  font-size: 36px;
+  font-weight: bold;
+  color: var(--gold);
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+  margin-bottom: 8px;
+}
+
+.realm-path {
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.cultivation-progress {
+  width: 100%;
+  max-width: 500px;
+}
+
+.progress-label {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.progress-bar {
+  position: relative;
+  height: 30px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.progress-bar.large {
+  height: 40px;
+  border-radius: 20px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #5a5aaa, #9a9aff, #c0a0ff);
+  transition: width 0.4s ease;
+  box-shadow: 0 0 10px rgba(154, 154, 255, 0.5);
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 13px;
+  font-weight: bold;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+}
+
+.cultivate-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.action-btn {
+  padding: 14px 36px;
+  font-size: 18px;
+  background: linear-gradient(135deg, #2a2a5a, #1a1a3a);
+  border: 1px solid var(--border-glow);
+  color: var(--text-primary);
+  cursor: pointer;
+  border-radius: 6px;
+  letter-spacing: 4px;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.action-btn.primary {
+  background: linear-gradient(135deg, #4a4a9a, #2a2a6a);
+  border-color: var(--gold);
+}
+
+.action-btn.secondary {
+  background: linear-gradient(135deg, #3a3a4a, #2a2a3a);
+  border-color: var(--border-color);
+}
+
+.result-msg {
+  min-height: 40px;
+  text-align: center;
+  font-size: 15px;
+  color: var(--immortal);
+  padding: 10px;
+}
+
+.cultivate-side {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.info-card h3 {
+  color: var(--gold-light);
+  margin-bottom: 12px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.realm-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.realm-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 4px;
+  gap: 8px;
+}
+
+.realm-item.current {
+  background: var(--bg-card);
+  color: var(--gold-light);
+  font-weight: bold;
+}
+
+.realm-item.completed {
+  color: var(--text-muted);
+}
+
+.realm-item .realm-num {
+  width: 20px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.realm-item.current .realm-num {
+  color: var(--gold);
+}
+
+.realm-item .realm-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.realm-item.current .realm-sub {
+  color: var(--gold-light);
+}
+
+/* ========== 技能面板 ========== */
+.skills-panel {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 20px;
+  height: 100%;
+}
+
+.skills-sidebar {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+.skill-category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.category-btn {
+  padding: 8px 12px;
+  background: var(--bg-tertiary);
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: 4px;
+  text-align: left;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.category-btn:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.category-btn.active {
+  background: var(--bg-card);
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+
+.category-btn .count {
+  float: right;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.skills-main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+}
+
+.skills-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skills-header h2 {
+  font-size: 20px;
+  color: var(--gold-light);
+}
+
+.skills-count {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  overflow-y: auto;
+  padding-bottom: 10px;
+}
+
+.skill-card {
+  padding: 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.skill-card.learned {
+  border-color: var(--border-glow);
+  background: var(--bg-card);
+}
+
+.skill-card.locked {
+  opacity: 0.7;
+}
+
+.skill-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.skill-name {
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.skill-level {
+  font-size: 12px;
+  color: var(--gold);
+  padding: 1px 6px;
+  background: rgba(212, 175, 55, 0.15);
+  border-radius: 3px;
+}
+
+.skill-category-tag {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.skill-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.skill-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.skill-card-actions .small-btn {
+  flex: 1;
+  padding: 6px;
+  font-size: 12px;
+}
+
+.skill-exp-bar {
+  height: 6px;
+  background: var(--bg-primary);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.skill-exp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #5aaa7a, #9affaa);
+  transition: width 0.3s;
+}
+
+/* ========== 背包面板 ========== */
+.inventory-panel h2 {
+  color: var(--gold-light);
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.item-card {
+  padding: 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  text-align: center;
+}
+
+.item-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.item-name {
+  font-size: 15px;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.item-count {
+  font-size: 18px;
+  color: var(--gold);
+  font-weight: bold;
+}
+
+.inventory-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px;
+  color: var(--text-muted);
+}
+
+/* ========== 状态面板 ========== */
+.status-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.status-section {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.status-section h3 {
+  color: var(--gold-light);
+  margin-bottom: 16px;
+  font-size: 18px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.status-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+}
+
+.status-item .label {
+  color: var(--text-muted);
+}
+
+.realm-detail {
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* ========== 天地面板 ========== */
+.world-panel h2 {
+  color: var(--gold-light);
+  margin-bottom: 16px;
+}
+
+.world-info {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  line-height: 2;
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+.world-paths h3 {
+  color: var(--gold-light);
+  margin-bottom: 16px;
+}
+
+.world-paths-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.world-path-item {
+  padding: 12px 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+}
+
+.world-path-item .wp-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--gold-light);
+  margin-bottom: 6px;
+}
+
+.world-path-item .wp-realms {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ========== 存档面板 ========== */
+.save-panel h2 {
+  color: var(--gold-light);
+  margin-bottom: 20px;
+}
+
+.save-actions {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.save-info {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.save-info span {
+  color: var(--gold-light);
+  word-break: break-all;
+}
+
+/* ========== 弹窗 ========== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-glow);
+  border-radius: 8px;
+  padding: 30px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+}
+
+.modal-content h2 {
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.modal-content p {
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+/* ========== 滚动条 ========== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-glow);
+}
+
+/* ========== 响应式 ========== */
+@media (max-width: 900px) {
+  .cultivate-panel {
+    grid-template-columns: 1fr;
+  }
+  .skills-panel {
+    grid-template-columns: 1fr;
+  }
+  .game-header {
+    flex-wrap: wrap;
+  }
+  .header-center {
+    order: 3;
+    width: 100%;
+    max-width: none;
+  }
+}
